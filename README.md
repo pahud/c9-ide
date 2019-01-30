@@ -18,11 +18,23 @@ This project aims to provide a containerized Cloud9 IDE environment on top of [C
 
 # Running in AWS China
 
-1. Launch an EC2 instance in public subnet and enabled the public IP address. Make sure the security group has HTTP(tcp80) and HTTPS(tcp443) wide open(0.0.0.0/0). Don't worry, we will restrict the ACL later.
+1. Launch an EC2 instance in public subnet and enabled the public IP address. Make sure the security group has `HTTP`(tcp80) and `HTTPS`(tcp443) wide open(`0.0.0.0/0`). Don't worry, we will restrict the ACL later.
 
-2. Configure the DNS resolution and map your domain name to this public IP address. For example, `c9.domain.com` resolves to `your.ec2.publicIp.address`. You can configure it in Route53 or any other DNS resolver that can resolve your domain.
+2. Configure the DNS resolution and map your domain name to this public IP address. For example, `c9-zhy3.pahud.net` resolves to `your.ec2.publicIp.address`. You can configure it in Route53 or any other DNS resolver that can resolve your domain.
 
-3. `ssh` into this EC2 instance and install `docker` and `make` . In Amazon Linux 2 LTS:
+   ```
+   $ nslookup c9-zhy3.pahud.net
+   Server:		192.168.31.1
+   Address:	192.168.31.1#53
+   
+   Non-authoritative answer:
+   Name:	c9-zhy3.pahud.net
+   Address: 52.82.44.160 
+   ```
+
+   (In this case, `52.82.44.160` is your EC2 instance public IP)
+
+3. `SSH` into this EC2 instance and install `docker` , `make` and `git` . In Amazon Linux 2 LTS:
 
    ```
    $ sudo yum install -y docker make git

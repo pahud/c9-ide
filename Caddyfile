@@ -1,0 +1,5 @@
+browse
+log stdout
+errors stdout
+proxy / http://localhost:8888
+

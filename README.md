@@ -38,6 +38,8 @@ This project aims to provide a containerized Cloud9 IDE environment on top of [C
 
    ```
    $ sudo yum install -y docker make git
+   $ sudo service docker restart
+   $ sudo service docker status (should see active (running))
    ```
 
    clone the repo

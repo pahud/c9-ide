@@ -133,3 +133,18 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 | **pahud/c9-ide:latest** | minimal base image(latest build) | **Alpine Linux** | - |
 
 
+# FAQ
+
+**Q: Can I pull images from Amazon ECR Ningxia or Beijing regions to speed up the pulling?**
+
+A: Yes, make sure:
+1. your EC2 has attached an IAM role with `AmazonEC2ContainerRegistryReadOnly` privileges.
+2. you need to run `ecr get-login` to get the docker login credentials
+```
+aws --region cn-northwest-1 ecr get-login --registry-ids 937788672844 --no-include-email | sh
+```
+3.  toggle `USE_ECR=1` to enable the image pulling from Amazon ECR Ningxia region
+```
+USE_ECR=1 DOMAIN=<YOUR_DN> EMAIL=<YOUR_EMAIL> MYUSERNAME=<YOUR_USER> MYPASSWORD=<YOUR_PASS> make run
+(this will pull image straight from ECR in Ningxia region)
+```

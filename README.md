@@ -1,3 +1,5 @@
+![](https://travis-ci.org/pahud/c9-ide.svg?branch=master)
+
 # c9-ide
 
 This project aims to provide a containerized Cloud9 IDE environment on top of [Cloud9 Core](https://github.com/c9/core) and help you bring up a production-ready Cloud9 IDE environment in on-premise environment or other regions which AWS Cloud9 is not available(e.g. AWS China Ningxia and Beijing regions)

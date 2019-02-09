@@ -148,3 +148,7 @@ aws --region cn-northwest-1 ecr get-login --registry-ids 937788672844 --no-inclu
 USE_ECR=1 DOMAIN=<YOUR_DN> EMAIL=<YOUR_EMAIL> MYUSERNAME=<YOUR_USER> MYPASSWORD=<YOUR_PASS> make run
 (this will pull image straight from ECR in Ningxia region)
 ```
+
+**Q: Can I run docker inside the IDE(Docker in Docker support)?**
+
+A: Yes, see [#4](https://github.com/pahud/c9-ide/issues/4)

@@ -1,9 +1,11 @@
-FROM alpine:3.5 as builder
+FROM abiosoft/caddy as caddy
+FROM pahud/c9-ide:alpine-base as alpine-base-ide
+FROM amazonlinux:latest as builder
 
-RUN apk add --update --no-cache tmux curl nodejs bash openssh-client
-
-RUN apk add --update --no-cache --virtual mypacks g++ make python  git py-pip python-dev  \
-&& rm -rf /var/cache/apk/*
+RUN yum update -y && yum install -y tmux curl pip python2-pip tar git which
+RUN yum groupinstall "Development Tools" -y
+RUN amazon-linux-extras install epel -y && \
+yum install -y nodejs npm
 
 RUN git clone -b master --single-branch git://github.com/c9/core.git /opt/cloud9 \
 && curl -s -L https://raw.githubusercontent.com/c9/install/master/link.sh | bash \
@@ -12,31 +14,11 @@ RUN git clone -b master --single-branch git://github.com/c9/core.git /opt/cloud9
 && rm -rf /tmp/* \
 && npm cache clean
 
-RUN apk del mypacks
-
-#
-# Caddy
-#
-FROM abiosoft/caddy as caddy
-
-#
-#
-FROM pahud/c9-ide:alpine-base as alpine-base-ide
-
-
-#
-# prepare the runtime
-#
-FROM amazonlinux:latest as runtime
-
 
 # Let's Encrypt Agreement
 ENV ACME_AGREE="true"
-ENV NODE_VER 10.15.1
-
-COPY --from=builder /opt/cloud9 /opt/cloud9
-COPY --from=builder /root /root
-
+# set default C9_USER as ec2-user
+ENV C9_USER="ec2-user"
 
 VOLUME /root/.caddy /srv
 COPY --from=caddy /usr/bin/caddy /usr/bin/caddy
@@ -44,27 +26,18 @@ COPY --from=caddy /etc/Caddyfile /etc/Caddyfile
 COPY --from=caddy /srv/index.html /srv/index.html
 COPY --from=caddy /bin/parent /bin/parent
 
-
-#RUN apk add --update --no-cache tmux curl nodejs bash supervisor
-RUN yum update -y && yum install -y tmux curl pip python2-pip
-
-#install docker
+#install docker and others
 RUN amazon-linux-extras install docker -y
-
-# install nodejs
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh | bash \
-&& . ~/.nvm/nvm.sh \
-&& nvm install $NODE_VER
 
 # install supervisor
 RUN pip install supervisor
 COPY --from=alpine-base-ide /etc/supervisord.conf /etc/supervisord.conf
 
-
 ADD cloud9.conf /etc/supervisor.d/cloud9.ini
 ADD caddy.conf /etc/supervisor.d/caddy.ini
 ADD Caddyfile /tmp/Caddyfile.tmp
 ADD entrypoint.sh /root/entrypoint.sh
+ADD bashrc /root/.bashrc
 
 ENV DOMAIN domain.com
 ENV EMAIL admin@domain.com

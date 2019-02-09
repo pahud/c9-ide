@@ -1,5 +1,7 @@
 #!/bin/bash
 
+[ -f /root/.profile ] && source /root/.profile
+
 start_dockerd() {
     /usr/bin/dockerd \
     	--host=unix:///var/run/docker.sock \

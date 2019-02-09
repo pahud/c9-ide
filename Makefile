@@ -1,4 +1,4 @@
-TAG ?= pahud/c9-ide:latest
+TAG ?= pahud/c9-ide:amazonlinux-full
 CONTAINER ?= c9-ide
 MYUSERNAME ?= user_changeme
 MYPASSWORD ?= pass_changeme

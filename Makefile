@@ -23,10 +23,10 @@ run:
 	-e DOMAIN=$(DOMAIN) \
 	-e EMAIL=$(EMAIL) \
 	-p 80:80 -p 443:443 $(TAG)
-	
+
 logs:
 	@docker logs -f $(CONTAINER)
-	
+
 push:
 	@docker push $(TAG)
 	
@@ -35,6 +35,9 @@ logtail:
 	
 bash:
 	@docker run -ti --rm --name $(CONTAINER) $(TAG) bash
+
+logtail:
+	@docker exec -ti $(CONTAINER) tail -f /var/log/supervisor/caddy.log
 	
 clear:
 	@docker rm -f $(CONTAINER) 

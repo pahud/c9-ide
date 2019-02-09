@@ -152,3 +152,7 @@ USE_ECR=1 DOMAIN=<YOUR_DN> EMAIL=<YOUR_EMAIL> MYUSERNAME=<YOUR_USER> MYPASSWORD=
 **Q: Can I run docker inside the IDE(Docker in Docker support)?**
 
 A: Yes, see [#4](https://github.com/pahud/c9-ide/issues/4)
+
+**Q: I need some extra tools. What can I do?**
+
+A: Just `yum install` it.

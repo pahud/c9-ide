@@ -126,11 +126,11 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 
 # Images available
 
-|        Name        |                    Description               | OS | - |
+|        Name        |                    Description               | OS | Ningxia ECR mirror |
 | :----------------: | :---------------------------: | :------------------------: | :------------------------: |
-| **pahud/c9-ide:amazonlinux-full** | default image         |   **Amazon Linux**  | recommended |
-| **pahud/c9-ide:alpine-base** | minimal base image | **Alpine Linux** | - |
-| **pahud/c9-ide:latest** | minimal base image(latest build) | **Alpine Linux** | - |
+| **pahud/c9-ide:amazonlinux-full** | default image         |   **Amazon Linux**  | 937788672844.dkr.ecr.cn-northwest-1.amazonaws.com.cn/c9-ide:amazonlinux-full |
+| **pahud/c9-ide:alpine-base** | minimal base image | **Alpine Linux** | 937788672844.dkr.ecr.cn-northwest-1.amazonaws.com.cn/c9-ide:alpine-base |
+| **pahud/c9-ide:latest** | minimal base image(latest build) | **Alpine Linux** | 937788672844.dkr.ecr.cn-northwest-1.amazonaws.com.cn/c9-ide:latest |
 
 
 # FAQ

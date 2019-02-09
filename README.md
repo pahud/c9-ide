@@ -126,10 +126,33 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 
 # Images available
 
-|        Name        |                    Description               | OS | - |
+|        Name        |                    Description               | OS | Ningxia ECR mirror |
 | :----------------: | :---------------------------: | :------------------------: | :------------------------: |
-| **pahud/c9-ide:amazonlinux-full** | default image         |   **Amazon Linux**  | recommended |
-| **pahud/c9-ide:alpine-base** | minimal base image | **Alpine Linux** | - |
-| **pahud/c9-ide:latest** | minimal base image(latest build) | **Alpine Linux** | - |
+| **pahud/c9-ide:amazonlinux-full** | default image         |   **Amazon Linux**  | 937788672844.dkr.ecr.cn-northwest-1.amazonaws.com.cn/c9-ide:amazonlinux-full |
+| **pahud/c9-ide:alpine-base** | minimal base image | **Alpine Linux** | 937788672844.dkr.ecr.cn-northwest-1.amazonaws.com.cn/c9-ide:alpine-base |
+| **pahud/c9-ide:latest** | minimal base image(latest build) | **Alpine Linux** | 937788672844.dkr.ecr.cn-northwest-1.amazonaws.com.cn/c9-ide:latest |
 
 
+# FAQ
+
+**Q: Can I pull images from Amazon ECR Ningxia or Beijing regions to speed up the pulling?**
+
+A: Yes, make sure:
+1. your EC2 has attached an IAM role with `AmazonEC2ContainerRegistryReadOnly` privileges.
+2. you need to run `ecr get-login` to get the docker login credentials
+```
+aws --region cn-northwest-1 ecr get-login --registry-ids 937788672844 --no-include-email | sh
+```
+3.  toggle `USE_ECR=1` to enable the image pulling from Amazon ECR Ningxia region
+```
+USE_ECR=1 DOMAIN=<YOUR_DN> EMAIL=<YOUR_EMAIL> MYUSERNAME=<YOUR_USER> MYPASSWORD=<YOUR_PASS> make run
+(this will pull image straight from ECR in Ningxia region)
+```
+
+**Q: Can I run docker inside the IDE(Docker in Docker support)?**
+
+A: Yes, see [#4](https://github.com/pahud/c9-ide/issues/4)
+
+**Q: I need some extra tools. What can I do?**
+
+A: Just `yum install` it.

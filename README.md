@@ -124,5 +124,12 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 1. make sure to update the security group of this EC2 instance and allow your original IP only to reduce the attack surface. If possible, disable all `HTTP` trafic and leave `HTTPS` only.
 2. don't use the default `MYUSERNAME` and `MYPASSWORD`, which is defined in the `Makefile`
 
+# Images available
+
+|        Name        |                    Description               | OS | - |
+| :----------------: | :---------------------------: | :------------------------: | :------------------------: |
+| **pahud/c9-ide:amazonlinux-full** | default image         |   **Amazon Linux**  | recommended |
+| **pahud/c9-ide:alpine-base** | minimal base image | **Alpine Linux** | - |
+| **pahud/c9-ide:latest** | minimal base image(latest build) | **Alpine Linux** | - |
 
 

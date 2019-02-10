@@ -14,7 +14,7 @@ This project aims to provide a containerized Cloud9 IDE environment on top of [C
 
 
 
-![](https://pbs.twimg.com/media/DyGJSofV4AA9qgG.jpg)
+![](images/00.png)
 
 
 
@@ -22,21 +22,9 @@ This project aims to provide a containerized Cloud9 IDE environment on top of [C
 
 1. Launch an EC2 instance in public subnet and enabled the public IP address. Make sure the security group has `HTTP`(tcp80) and `HTTPS`(tcp443) wide open(`0.0.0.0/0`). Don't worry, we will restrict the ACL later.
 
-2. Configure the DNS resolution and map your domain name to this public IP address. For example, `c9-zhy3.pahud.net` resolves to `your.ec2.publicIp.address`. You can configure it in Route53 or any other DNS resolver that can resolve your domain.
-
-   ```
-   $ nslookup c9-zhy3.pahud.net
-   Server:		192.168.31.1
-   Address:	192.168.31.1#53
    
-   Non-authoritative answer:
-   Name:	c9-zhy3.pahud.net
-   Address: 52.82.44.160 
-   ```
 
-   (In this case, `52.82.44.160` is your EC2 instance public IP)
-
-3. `SSH` into this EC2 instance and install `docker` , `make` and `git` . In Amazon Linux 2 LTS:
+2. `SSH` into this EC2 instance and install `docker` , `make` and `git` . In Amazon Linux 2 LTS:
 
    ```
    $ sudo yum install -y docker make git
@@ -53,51 +41,77 @@ This project aims to provide a containerized Cloud9 IDE environment on top of [C
    $ sudo -s
    ```
 
+   ECR `get-login` before we can pull the docker images from ECR in `cn-northwest-1`. Make sure you specify `--registry-ids 937788672844` in the command line.
+
+   ```
+   $ aws --region cn-northwest-1 ecr get-login --registry-ids 937788672844 --no-include-email | sh
+   WARNING! Using --password via the CLI is insecure. Use --password-stdin.
+   WARNING! Your password will be stored unencrypted in /root/.docker/config.json.
+   Configure a credential helper to remove this warning. See
+   https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+   
+   Login Succeeded
+   
+   ```
+
    
 
    ```
-   [root@ip-172-31-37-66 c9-ide]# DOMAIN=c9-zhy3.pahud.net EMAIL=pahud@qq.com MYUSERNAME=changeme MYPASSWORD=changeme make run
-   Unable to find image 'pahud/c9-ide:latest' locally
-   latest: Pulling from pahud/c9-ide
-   a44d943737e8: Pull complete 
-   9ad978dcc159: Pull complete 
-   fb80c844a047: Pull complete 
-   0088efcf6bbe: Pull complete 
-   194b3f5ec73b: Pull complete 
-   530ba99823b7: Pull complete 
-   cdd62414ae71: Pull complete 
-   995e80b09714: Pull complete 
-   6388f650d1cc: Pull complete 
-   9b1318baaffc: Pull complete 
-   cd73b561e887: Pull complete 
-   3a2f1e1603b9: Pull complete 
-   413d808a0258: Pull complete 
-   Digest: sha256:7eb69ee416117547f8ceaa6043ecfa85f09838646612110b55700fa55bdebdde
-   Status: Downloaded newer image for pahud/c9-ide:latest
-   c2822490008c4294f631d03265a3b29d4e6a20b24f60be6b6746e9791ec4e625
+   # USE_ECR=1 EMAIL=you@domain.com MYUSERNAME=xxxxxx MYPASSWORD=xxxxxxx make run
+   
+   Unable to find image '937788672844.dkr.ecr.cn-northwest-1.amazonaws.com.cn/c9-ide:amazonlinux-full' locally
+   amazonlinux-full: Pulling from c9-ide
+   2cbe74538cb5: Pull complete 
+   3b4e8c37e8e3: Pull complete 
+   81a68cf06e6c: Pull complete 
+   9ccd8d11a336: Pull complete 
+   e74e6335de2d: Pull complete 
+   5a8c3961ae7f: Pull complete 
+   d8e17efc1a44: Pull complete 
+   21f545e8c008: Pull complete 
+   d79d436325ea: Pull complete 
+   6edbc6316129: Pull complete 
+   5ee1c9a10823: Pull complete 
+   384f16344ca4: Pull complete 
+   2d8ac1c25f1b: Pull complete 
+   7c61f3412edb: Pull complete 
+   c02e24056413: Pull complete 
+   05d4b580aa03: Pull complete 
+   af4ff9de1323: Pull complete 
+   78c03c5d08bc: Pull complete 
+   Digest: sha256:552f481b9cd0572991eacd9fa9c632c503f815f52e616a82d5ec2e7cc114fda5
+   Status: Downloaded newer image for 937788672844.dkr.ecr.cn-northwest-1.amazonaws.com.cn/c9-ide:amazonlinux-full
+   
+   efa1454a334609394b30f7a5fe3a2498f25e2c1daa5cf1be9bad00cdd7a9151e
+   
    ```
 
-   tail the log
+   `make logtail` to tail the log
 
    ```
-   [root@ip-172-31-37-66 c9-ide]# make logtail
-   Activating privacy features... 2019/01/30 10:09:43 [INFO] acme: Registering account for pahud@qq.com
-   2019/01/30 10:09:44 [INFO] [c9-zhy3.pahud.net] acme: Obtaining bundled SAN certificate
-   2019/01/30 10:09:44 [INFO] [c9-zhy3.pahud.net] AuthURL: https://acme-v02.api.letsencrypt.org/acme/authz/B5b-VbjJgs3lX89zNdReTKXTvYfIn4-i5ReAzXErahY
-   2019/01/30 10:09:44 [INFO] [c9-zhy3.pahud.net] acme: use tls-alpn-01 solver
-   2019/01/30 10:09:44 [INFO] [c9-zhy3.pahud.net] acme: Trying to solve TLS-ALPN-01
-   2019/01/30 10:09:51 [INFO] [c9-zhy3.pahud.net] The server validated our request
-   2019/01/30 10:09:51 [INFO] [c9-zhy3.pahud.net] acme: Validations succeeded; requesting certificates
-   2019/01/30 10:09:53 [INFO] [c9-zhy3.pahud.net] Server responded with a certificate.
+   # make logtail
+   Activating privacy features... 2019/02/10 04:06:20 [INFO][FileStorage:/root/.caddy] Started certificate maintenance routine
+   2019/02/10 04:06:20 [INFO] acme: Registering account for you@domain.com
+   2019/02/10 04:06:21 [INFO] [ec2-52-82-36-195.cn-northwest-1.compute.amazonaws.com.cn] acme: Obtaining bundled SAN certificate
+   2019/02/10 04:06:22 [INFO] [ec2-52-82-36-195.cn-northwest-1.compute.amazonaws.com.cn] AuthURL: https://acme-v02.api.letsencrypt.org/acme/authz/GJ0aILI6NpoZYVs1cJOSYDkcnoakkeWSEQ1mfFKiogs
+   2019/02/10 04:06:22 [INFO] [ec2-52-82-36-195.cn-northwest-1.compute.amazonaws.com.cn] acme: use tls-alpn-01 solver
+   2019/02/10 04:06:22 [INFO] [ec2-52-82-36-195.cn-northwest-1.compute.amazonaws.com.cn] acme: Trying to solve TLS-ALPN-01
+   2019/02/10 04:06:29 [INFO] [ec2-52-82-36-195.cn-northwest-1.compute.amazonaws.com.cn] The server validated our request
+   2019/02/10 04:06:29 [INFO] [ec2-52-82-36-195.cn-northwest-1.compute.amazonaws.com.cn] acme: Validations succeeded; requesting certificates
+   2019/02/10 04:06:31 [INFO] [ec2-52-82-36-195.cn-northwest-1.compute.amazonaws.com.cn] Server responded with a certificate.
    done.
-   https://c9-zhy3.pahud.net
-   2019/01/30 10:09:57 https://c9-zhy3.pahud.net
-   http://c9-zhy3.pahud.net
-   2019/01/30 10:09:57 http://c9-zhy3.pahud.net
+   https://ec2-52-82-36-195.cn-northwest-1.compute.amazonaws.com.cn
+   2019/02/10 04:06:33 https://ec2-52-82-36-195.cn-northwest-1.compute.amazonaws.com.cn
+   http://ec2-52-82-36-195.cn-northwest-1.compute.amazonaws.com.cn
+   2019/02/10 04:06:33 http://ec2-52-82-36-195.cn-northwest-1.compute.amazonaws.com.cn
    WARNING: File descriptor limit 1024 is too low for production servers. At least 8192 is recommended. Fix with `ulimit -n 8192`.
    ```
 
-   open your browser to **http://<YOUR_DOMAIN>**
+   
+
+   
+
+   open your browser to **http://<YOUR_EC2_PUBLIC_HOSTNAME>**
 
    You will immediately see a pop-up window with **https://** as the scheme, indicating all trafic is SSL/TLS encrypted in transit. Enter your `MYUSERNAME` and `MYPASSWORD` you previously passed in the `make` command and you will see the Cloud9 welcome page.
 

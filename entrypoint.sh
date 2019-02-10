@@ -29,4 +29,4 @@ sed -i -e s/{USERNAME}/$MYUSERNAME/g /etc/supervisor.d/cloud9.ini
 sed -i -e s/{PASSWORD}/$MYPASSWORD/g /etc/supervisor.d/cloud9.ini
 
 start_dockerd
-supervisord -n -c /etc/supervisord.conf
+supervisord -n -c /etc/supervisord.conf --pidfile /var/run/supervisord.pid

@@ -7,8 +7,11 @@ CONTAINER ?= c9-ide
 MYUSERNAME ?= user_changeme
 MYPASSWORD ?= pass_changeme
 EMAIL ?= admin@domain.com
-DOMAIN ?= host.domain.com
-
+#DOMAIN ?= host.domain.com
+PUBLIC_HOSTNAME ?= $(shell curl -s http://169.254.169.254/latest/meta-data/public-hostname)
+ifndef DOMAIN
+DOMAIN ?= $(PUBLIC_HOSTNAME)
+endif
 
 build: build-amazonlinux-full
 

@@ -18,6 +18,7 @@ build: build-amazonlinux-full
 build-amazonlinux-full:
 	@docker build -t $(TAG) -f Dockerfile.amazonlinux-full . 
 	@docker tag pahud/c9-ide:amazonlinux-full 937788672844.dkr.ecr.cn-northwest-1.amazonaws.com.cn/c9-ide:amazonlinux-full
+	@echo "937788672844.dkr.ecr.cn-northwest-1.amazonaws.com.cn/c9-ide:amazonlinux-full tagged"
 	
 build-alpine:
 	@docker build -t $(TAG_ALPINE) -f Dockerfile . 

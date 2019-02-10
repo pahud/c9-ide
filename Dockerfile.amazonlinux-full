@@ -37,7 +37,7 @@ ADD cloud9.conf /etc/supervisor.d/cloud9.ini
 ADD caddy.conf /etc/supervisor.d/caddy.ini
 ADD Caddyfile /tmp/Caddyfile.tmp
 ADD entrypoint.sh /root/entrypoint.sh
-ADD bashrc /root/.bashrc
+ADD bashrc /root/.bash_profile
 
 ENV DOMAIN domain.com
 ENV EMAIL admin@domain.com

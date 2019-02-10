@@ -2,7 +2,7 @@ FROM abiosoft/caddy as caddy
 FROM pahud/c9-ide:alpine-base as alpine-base-ide
 FROM amazonlinux:latest as builder
 
-RUN yum update -y && yum install -y tmux curl pip python2-pip tar git which
+RUN yum update -y && yum install -y tmux curl pip python2-pip tar git which awscli
 RUN yum groupinstall "Development Tools" -y
 RUN amazon-linux-extras install epel -y && \
 yum install -y nodejs npm

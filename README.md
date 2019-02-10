@@ -154,6 +154,18 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 | **pahud/c9-ide:latest** | minimal base image(latest build) | **Alpine Linux** | 937788672844.dkr.ecr.cn-northwest-1.amazonaws.com.cn/c9-ide:latest |
 
 
+
+# Data Persistence on the Host
+
+|  Container Path  |       Host Path        |                           Content                            |
+| :--------------: | :--------------------: | :----------------------------------------------------------: |
+| **/root/.caddy** | **${PWD}/root/.caddy** | Metadata and Let's Encrypt Key and Cert [#10](https://github.com/pahud/c9-ide/issues/10) |
+|  **/workspace**  |  **${PWD}/workspace**  | workspace data [#12](https://github.com/pahud/c9-ide/issues/12) |
+
+
+
+
+
 # FAQ
 
 **Q: Can I pull images from Amazon ECR Ningxia or Beijing regions to speed up the pulling?**

@@ -32,6 +32,7 @@ ifeq ($(USE_ECR),1)
 	-e MYPASSWORD=$(MYPASSWORD) \
 	-e DOMAIN=$(DOMAIN) \
 	-e EMAIL=$(EMAIL) \
+	-v $(shell pwd)/root/.caddy:/root/.caddy \
 	-p 80:80 -p 443:443 $(ECRTAG)
 else
 	@docker pull $(TAG)
@@ -40,6 +41,7 @@ else
 	-e MYPASSWORD=$(MYPASSWORD) \
 	-e DOMAIN=$(DOMAIN) \
 	-e EMAIL=$(EMAIL) \
+	-v $(shell pwd)/root/.caddy:/root/.caddy \
 	-p 80:80 -p 443:443 $(TAG)
 endif
 

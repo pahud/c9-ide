@@ -36,6 +36,7 @@ ifeq ($(USE_ECR),1)
 	-v $(shell pwd)/root/.caddy:/root/.caddy \
     -v $(shell pwd)/workspace:/workspace \
 	-p 80:80 -p 443:443 $(ECRTAG)
+	@echo "open https://$(DOMAIN)"
 else
 	@docker pull $(TAG)
 	@docker run --privileged -d --name $(CONTAINER) \
@@ -46,6 +47,7 @@ else
 	-v $(shell pwd)/root/.caddy:/root/.caddy \
     -v $(shell pwd)/workspace:/workspace \
 	-p 80:80 -p 443:443 $(TAG)
+	@echo "open https://$(DOMAIN)"
 endif
 
 logs:

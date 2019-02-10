@@ -33,6 +33,7 @@ ifeq ($(USE_ECR),1)
 	-e DOMAIN=$(DOMAIN) \
 	-e EMAIL=$(EMAIL) \
 	-v $(shell pwd)/root/.caddy:/root/.caddy \
+    -v $(shell pwd)/workspace:/workspace \
 	-p 80:80 -p 443:443 $(ECRTAG)
 else
 	@docker pull $(TAG)
@@ -42,6 +43,7 @@ else
 	-e DOMAIN=$(DOMAIN) \
 	-e EMAIL=$(EMAIL) \
 	-v $(shell pwd)/root/.caddy:/root/.caddy \
+    -v $(shell pwd)/workspace:/workspace \
 	-p 80:80 -p 443:443 $(TAG)
 endif
 

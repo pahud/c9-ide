@@ -41,6 +41,8 @@ This project aims to provide a containerized Cloud9 IDE environment on top of [C
    $ sudo -s
    ```
 
+   
+
    ECR `get-login` before we can pull the docker images from ECR in `cn-northwest-1`. Make sure you specify `--registry-ids 937788672844` in the command line.
 
    ```
@@ -53,6 +55,8 @@ This project aims to provide a containerized Cloud9 IDE environment on top of [C
    Login Succeeded
    
    ```
+
+   **IMPORTANT**: make sure your EC2 has attached an IAM role with `AmazonEC2ContainerRegistryReadOnly` privileges or you may get `aws configue` error or fail to pull ECR images.
 
    
 

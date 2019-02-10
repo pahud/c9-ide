@@ -2,7 +2,7 @@
 
 # c9-ide
 
-This project aims to provide a containerized Cloud9 IDE environment on top of [Cloud9 Core](https://github.com/c9/core) and help you bring up a Cloud9 IDE environment out-of-the-box in on-premise environment or other AWS regions which AWS Cloud9 is not available(e.g. AWS China Ningxia and Beijing regions)
+This project aims to provide a containerized Cloud9 IDE environment on top of [Cloud9 Core](https://github.com/c9/core) and help you bring up a Cloud9 IDE environment out-of-the-box in on-premise environment or other AWS regions which AWS Cloud9 is not available(e.g. AWS China `Ningxia` or `Beijing` region)
 
 
 

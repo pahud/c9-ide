@@ -26,6 +26,7 @@ build-alpine:
 	
 run:
 ifeq ($(USE_ECR),1)
+	@docker pull $(ECRTAG)
 	@docker run --privileged -d --name $(CONTAINER) \
 	-e MYUSERNAME=$(MYUSERNAME) \
 	-e MYPASSWORD=$(MYPASSWORD) \
@@ -33,6 +34,7 @@ ifeq ($(USE_ECR),1)
 	-e EMAIL=$(EMAIL) \
 	-p 80:80 -p 443:443 $(ECRTAG)
 else
+	@docker pull $(TAG)
 	@docker run --privileged -d --name $(CONTAINER) \
 	-e MYUSERNAME=$(MYUSERNAME) \
 	-e MYPASSWORD=$(MYPASSWORD) \

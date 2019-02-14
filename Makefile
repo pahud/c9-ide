@@ -34,7 +34,10 @@ ifeq ($(USE_ECR),1)
 	-e DOMAIN=$(DOMAIN) \
 	-e EMAIL=$(EMAIL) \
 	-v $(shell pwd)/root/.caddy:/root/.caddy \
-    -v $(shell pwd)/workspace:/workspace \
+        -v /etc/yum:/etc/yum \
+        -v /etc/yum.conf:/etc/yum.conf \
+        -v /etc/yum.repos.d:/etc/yum.repos.d \
+    	-v $(shell pwd)/workspace:/workspace \
 	-p 80:80 -p 443:443 $(ECRTAG)
 	@echo "open https://$(DOMAIN)"
 else
@@ -45,7 +48,10 @@ else
 	-e DOMAIN=$(DOMAIN) \
 	-e EMAIL=$(EMAIL) \
 	-v $(shell pwd)/root/.caddy:/root/.caddy \
-    -v $(shell pwd)/workspace:/workspace \
+        -v /etc/yum:/etc/yum \
+        -v /etc/yum.conf:/etc/yum.conf \
+        -v /etc/yum.repos.d:/etc/yum.repos.d \
+    	-v $(shell pwd)/workspace:/workspace \
 	-p 80:80 -p 443:443 $(TAG)
 	@echo "open https://$(DOMAIN)"
 endif

@@ -23,7 +23,7 @@ This project aims to provide a containerized Cloud9 IDE environment on top of [C
 
 # Running in AWS China
 
-1. Launch an EC2 instance in public subnet and enabled the public IP address. Make sure the security group has `HTTP`(tcp80) and `HTTPS`(tcp443) wide open(`0.0.0.0/0`). Don't worry, we will restrict the ACL later.
+1. Launch an EC2 instance in public subnet and enabled the public IP address. Make sure the security group has `HTTPS`(tcp443) wide open(`0.0.0.0/0`). Don't worry, we will restrict the ACL later.
 
    
 
@@ -142,7 +142,7 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 
 # Security Concern
 
-1. make sure to update the security group of this EC2 instance and allow your original IP only to reduce the attack surface. If possible, disable all `HTTP` trafic and leave `HTTPS` only.
+1. make sure to update the security group of this EC2 instance and allow your original IP only to reduce the attack surface. If possible, just leave `HTTPS` only.
 2. don't use the default `MYUSERNAME` and `MYPASSWORD`, which is defined in the `Makefile`
 
 # Images available
